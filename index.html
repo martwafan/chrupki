@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wybierz postać</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #ffccff, #cc99ff);
+      margin: 0;
+      padding: 0;
+      color: #4a004a;
+    }
+    header {
+      text-align: center;
+      padding: 2rem;
+    }
+    .characters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .character-button {
+      padding: 1rem 2rem;
+      background-color: #e699ff;
+      border: none;
+      border-radius: 1rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    .character-button:hover {
+      background-color: #cc66ff;
+    }
+    .character-info {
+      text-align: center;
+      padding: 1rem;
+    }
+    .character-info img {
+      max-width: 200px;
+      border-radius: 1rem;
+      margin-top: 1rem;
+    }
+    .comments-section {
+      background-color: #f2e6ff;
+      padding: 2rem;
+      border-top: 2px solid #cc99ff;
+    }
+    .comments-section h2 {
+      text-align: center;
+    }
+    .comment-form textarea {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid #cc99ff;
+      resize: none;
+      margin-bottom: 1rem;
+    }
+    .comment-form button {
+      padding: 0.5rem 1.5rem;
+      background-color: #e699ff;
+      border: none;
+      border-radius: 1rem;
+      color: white;
+      cursor: pointer;
+    }
+    .comment {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 0 5px #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Wybierz postać</h1>
+  </header>
+
+  <div class="characters">
+    <button class="character-button" onclick="showCharacter('maria')">Maria</button>
+    <button class="character-button" onclick="showCharacter('ruda')">Ruda</button>
+    <button class="character-button" onclick="showCharacter('stara')">Stara</button>
+    <button class="character-button" onclick="showCharacter('martynix')">Martynix</button>
+    <button class="character-button" onclick="showCharacter('marta')">Marta</button>
+  </div>
+
+  <div class="character-info" id="characterInfo"></div>
+
+  <div class="comments-section">
+    <h2>Komentarze</h2>
+    <form class="comment-form" onsubmit="addComment(event)">
+      <textarea id="commentText" rows="4" placeholder="Dodaj komentarz..."></textarea>
+      <button type="submit">Dodaj</button>
+    </form>
+    <div id="comments"></div>
+  </div>
+
+  <script>
+    const characterData = {
+      maria: {
+        name: 'Maria',
+        age: 19,
+        traits: 'Ciepła',
+        description: 'Maria to SKIBIDI SIGMA',
+        image: 'https://i.pinimg.com/736x/31/a2/18/31a2186751e6262133846f16455ef481.jpg'
+      },
+      ruda: {
+        name: 'Ruda',
+        age: 20,
+        traits: 'Powiedzmy, że jest ok',
+        description: 'Ruda jest ostra jak brzytwa',
+        image: 'https://i.pinimg.com/736x/e4/4e/7e/e44e7e3509cde14078b955ed758299e5.jpg'
+      },
+      stara: {
+        name: 'Stara',
+        age: 21,
+        traits: 'Doświadczona',
+        description: 'Stara zna życie jak nikt inny o tym świadczy jej wiek',
+        image: 'https://i.pinimg.com/736x/76/85/e2/7685e2ce61a94cb04fc65600cdb13c99.jpg'
+      },
+      martynix: {
+        name: 'Martynix',
+        age: 20,
+        traits: 'Szuka chłopaka',
+        description: 'Martynix to wybuchowa mieszanka humoru i charyzmy',
+        image: 'https://i.pinimg.com/736x/38/23/15/382315cf7f7dd697146533ea538db3a8.jpg'
+      },
+      marta: {
+        name: 'Marta',
+        age: 20,
+        traits: 'Będą z niej ludzie',
+        description: 'Marta jak zwyczajny pies',
+        image: 'https://i.pinimg.com/736x/97/55/6b/97556b3f5865b4dc1c3aece334c0eeac.jpg'
+      }
+    };
+
+    function showCharacter(name) {
+      const character = characterData[name];
+      const infoDiv = document.getElementById('characterInfo');
+      infoDiv.innerHTML = `
+        <h2>${character.name}</h2>
+        <p><strong>Wiek:</strong> ${character.age}</p>
+        <p><strong>Cechy:</strong> ${character.traits}</p>
+        <p>${character.description}</p>
+        <img src="${character.image}" alt="${character.name}" />
+      `;
+    }
+
+    function addComment(event) {
+      event.preventDefault();
+      const commentText = document.getElementById('commentText').value;
+      if (commentText.trim() === '') return;
+
+      const commentDiv = document.createElement('div');
+      commentDiv.className = 'comment';
+      commentDiv.textContent = commentText;
+
+      document.getElementById('comments').appendChild(commentDiv);
+      document.getElementById('commentText').value = '';
+    }
+  </script>
+</body>
+</html>
